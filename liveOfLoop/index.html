@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Live of loop component</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+  <script type="text/babel">
+
+  //Применим некоторые из событий жизненного цикла:
+      class ClickButton extends React.Component {
+        constructor (props) {
+          super (props);
+          this.state = {class: "off", label: "Click me"};
+
+          this.press = this.press.bind(this);
+          console.log('constructor');
+        }
+
+        //При загрузке компонента сработают сразу четыре этапа жизненного цикла компонента:
+
+        //При нажатии на кнопку сработает обработчик нажатия,
+        //который обновит объект state, что вызовет еще ряд функций жизненного цикла и повторный рендеринг:
+
+        //- - - - - - - - - -
+        componentWillReceiveProps (nextProps) {
+          console.log('componentWillReceiveProps()');
+        }
+        componentWillMount () {
+          console.log('componentWillMount()');
+        }
+        componentDidMount () {
+          console.log('componentDidMount()');
+        }
+        componentWillUnmount () {
+          console.log('componentWillUnmount()');
+        }
+        shouldComponentUpdate () {
+          console.log('shouldComponentUpdate()');
+          return true;
+        }
+        componentWillUpdate () {
+          console.log('componentWillUpdate()');
+        }
+        componentDidUpdate () {
+          console.log('componentDidUpdate()');
+        }
+        //- - - - - - - - - -
+        press () {
+          let className = (this.state.class === "off") ? "on" : "off";
+          this.setState({class: className});
+        }
+        render () {
+          return (
+            <div>
+              console.log('render()');
+              <button onClick={this.press} className={this.state.class}>
+                {this.state.label}
+              </button>
+            </div>
+          );
+        }
+      }
+    //Выводим на экран <ClickButton />
+    ReactDOM.render (<ClickButton />, document.getElementById('root'));
+  </script>
+</body>
+</html>

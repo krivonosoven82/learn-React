@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Components</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+  <script type="text/babel">
+    //Компоненты можно определить различными способами.
+    //Первый способ - функциональный.
+      function Hello1 () {
+        return (
+          <h1>This is component Hello_1!</h1>
+        );
+      }
+    //Второй способ определения компонентов предполагает использование классов ES6:
+      class Hello2 extends React.Component {
+        render () {
+          return (
+            <h1>This is component Hello_2!</h1>
+          );
+        }
+      }
+    //Также для определения мы можем использовать стрелочные функции (arrow functions):
+      const Hello3 = () => {
+        return (
+          <h1>This is component Hello_3!</h1>
+        );
+      }
+    //Используем выше определенный компонент:
+    ReactDOM.render (<Hello3 />, document.getElementById('root'));
+  </script>
+</body>
+</html>

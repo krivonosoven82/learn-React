@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Props</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+  <script type="text/babel">
+    //Функциональный подход:
+      function Hello1 (props) {
+        return (
+          <div>
+            <p>Имя: {props.name}</p>
+            <p>Возраст: {props.age}</p>
+          </div>
+        );
+      }
+    //Использование классов ES6:
+      class Hello2 extends React.Component {
+        render () {
+          return (
+            <div>
+              <p>Имя: {this.props.name}</p>
+              <p>Возраст: {this.props.age}</p>
+            </div>
+          );
+        }
+      }
+    //Использование стрелочных функций (arrow functions):
+      const Hello3 = (props) => {
+        const {name, age} = props;
+        return (
+          <div>
+            <p>Имя: {name}</p>
+            <p>Возраст: {age}</p>
+          </div>
+        );
+      }
+
+    //Значения по умолчанию
+    //Если мы применяем классы, то для для установки значений применяется статическое свойство defaultProps:
+    class Hello4 extends React.Component {
+    render() {
+        return (
+          <div>
+            <p>Имя: {this.props.name}</p>
+            <p>Возраст: {this.props.age}</p>
+          </div>
+        );
+      }
+    }
+    Hello4.defaultProps = {name: "Tom", age: 22};
+  //При функциональном определении компонента также применяется свойство defaultProps:
+    function Hello5(props) {
+    return (
+      <div>
+        <p>Имя: {props.name}</p>
+        <p>Возраст: {props.age}</p>
+      </div>
+    );
+  }
+  Hello5.defaultProps = {name: "Tom", age: 22};
+
+  //Выводим на экран <Hello5 />
+    ReactDOM.render (<Hello5 age="34" />, //name="Tom" - из значений по умолчанию.
+      document.getElementById('root'));
+  </script>
+</body>
+</html>

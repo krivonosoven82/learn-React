@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>updateState</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+  <script type="text/babel">
+    //Для обновления состояния вызывается функция setState():
+      class ClickButton extends React.Component {
+        constructor (props) {
+          super (props);
+          this.state = {class: "off", label: "Click me"};
+
+          this.press = this.press.bind(this);
+        }
+
+        press () {
+          let className = (this.state.class === "off") ? "on" : "off";
+          this.setState({class: className});
+        }
+        render () {
+          return (
+            <button onClick={this.press} className={this.state.class}>
+              {this.state.label}
+            </button>
+          );
+        }
+      }
+    //Выводим на экран <ClickButton />
+    ReactDOM.render (<ClickButton />, document.getElementById('root'));
+//******************************************************************************
+    //Асинхронное обновление
+    
+    //Для обновления надо использовать другую версию функции setState(),
+    // которая в качестве параметра принимает функцию. Данная функция имеет
+    // два параметра: предыдущее состояние объекта state и объект props на момент применения обновления:
+
+    // this.setStaate(function (prevState, props) {
+    //   return {
+    //     counter: prevState.counter + props.increment
+    //   };
+    // });
+//******************************************************************************
+  </script>
+</body>
+</html>
