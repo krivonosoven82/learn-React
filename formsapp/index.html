@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <script type="text/babel">
+      class UserForm extends React.Component{
+        constructor (props) {
+          super (props);
+          this.state = {name: ''};
+
+          this.onChange = this.onChange.bind(this);
+          this.handleSubmit = this.handleSubmit.bind(this);
+        }
+        onChange (e) {
+          let val = e.target.value;
+          this.setState({name: val});
+        }
+        handleSubmit (e) {
+          e.preventDefault();
+          alert('Имя: ' + this.state.name);
+        }
+
+        render () {
+          return (
+            <form onSubmit={this.handleSubmit}>
+              <p>
+                <label>Имя:</label><br />
+                <input
+                  type="text"
+                  value={this.state.name}
+                  onChange={this.onChange}
+                />
+                <input type="submit" value="Отправить" />
+              </p>
+            </form>
+          );
+        }
+      }
+      ReactDOM.render(<UserForm />, document.getElementById('root'));
+    </script>
+</body>
+</html>
