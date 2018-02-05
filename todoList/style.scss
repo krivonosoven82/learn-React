@@ -1,0 +1,93 @@
+*,
+*::after,
+*::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  font-family: "Arial", sans-serif;
+}
+.wrap{
+  //border: 1px solid green;
+  //height: 100vh;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  align-items: center;
+}
+.container{
+  border: 2px solid gray;
+  border-radius: 4px;
+  width: 700px;
+  //height: 200px;
+  margin-bottom: 30px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+  &:last-of-type{
+    margin-bottom: 0;
+  }
+  &__title{
+    //border: 1px solid blue;
+    color: black;
+    margin-bottom: 30px;
+  }
+  &__item{
+    //border: 1px solid red;
+  }
+  &__textarea{
+    width: 250px;
+    height: 70px;
+    margin-bottom: 30px;
+    border: 2px solid black;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+  }
+}
+.btn{
+  width: 150px;
+  height: 50px;
+  margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  &:last-of-type{
+    margin-right: 0;
+  }
+  &--green{
+    background-color: green;
+    &:hover{
+      background-color: darkgreen;
+    }
+  }
+  &--red{
+    background-color: red;
+    &:hover{
+      background-color: darkred;
+    }
+  }
+  &--blue{
+    background-color: blue;
+    &:hover{
+      background-color: darkblue;
+    }
+  }
+  &--orange{
+    background-color: orange;
+    margin-bottom: 30px;
+    &:hover{
+      background-color: darkorange;
+    }
+  }
+
+}

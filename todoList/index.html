@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>todoList</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+  <script type="text/babel">
+
+  //----------component Task----------
+    class Task extends React.Component {
+      constructor(props){
+        super(props);
+        this.state = {edit: false};
+        this.onEdit = this.onEdit.bind(this);
+        this.onRemove = this.onRemove.bind(this);
+        this.onSave = this.onSave.bind(this);
+        this.rendNorm = this.rendNorm.bind(this);
+        this.rendEdit = this.rendEdit.bind(this);
+      }
+
+      onEdit(){
+        this.setState({edit: true});
+      }
+      onRemove(){
+        this.props.deleteBlock(this.props.index);
+      }
+      onSave(){
+        this.props.update(this.refs.newTxt.value, this.props.index);//(от куда, куда)
+        this.setState({edit: false});
+      }
+      rendNorm(){
+        return (
+            <div className="container">
+              <h1 className="container__title">{this.props.children}</h1>
+              <div className="container__item">
+                <button
+                  onClick={this.onEdit}
+                  className="btn btn--green"
+                >Редактировать</button>
+                <button
+                  onClick={this.onRemove}
+                  className="btn btn--red"
+                >Удалить</button>
+              </div>
+            </div>
+        );
+      }
+      rendEdit(){
+        return (
+            <div className="container">
+              <textarea
+                className="container__textarea"
+                ref="newTxt"
+                defaultValue={this.props.children}
+              ></textarea>
+              <div className="container__item">
+                <button
+                  onClick={this.onSave}
+                  className="btn btn--blue"
+                >Сохранить</button>
+              </div>
+            </div>
+        );
+      }
+
+      render () {
+        if(this.state.edit){
+          return this.rendEdit();
+        } else {
+          return this.rendNorm();
+        }
+      }
+    }
+
+    //----------component Wrap----------
+    class Wrap extends React.Component {
+      constructor (props) {
+        super (props);
+        this.state = {tasks: []};
+        this.deleteBlock = this.deleteBlock.bind(this);
+        this.updateText = this.updateText.bind(this);
+        this.eachTask = this.eachTask.bind(this);
+        this.onAdd = this.onAdd.bind(this);
+      }
+      onAdd (text) {
+        let arr = this.state.tasks;
+        arr.push(text);
+        this.setState({tasks: arr});
+      }
+      deleteBlock (i) {
+        let arr = this.state.tasks;
+        arr.splice(i, 1); //(i ->index, 1 -> количечтво)
+        this.setState({tasks: arr});
+      }
+      updateText (text, i) { // i -> index
+        let arr = this.state.tasks;
+        arr[i] = text;
+        this.setState({tasks: arr});
+      }
+      eachTask (item, i) { // i -> index
+        return(
+          <Task
+            key={i}
+            index={i}
+            update={this.updateText}
+            deleteBlock={this.deleteBlock}
+          >
+            {item}
+          </Task>
+        );
+      }
+      render() {
+        return (
+          <div className="wrap">
+            <button
+              onClick={this.onAdd.bind(null, 'Новое задание')}
+              className="btn btn--orange"
+            >
+              Новое задание
+            </button>
+            {this.state.tasks.map(this.eachTask)}
+          </div>
+        );
+      }
+    }
+
+    //----------component TodoList----------
+    class TodoList extends React.Component {
+      render () {
+        return (
+          <Wrap />
+        );
+      }
+    }
+
+    //----------show component TodoList
+    const app = document.getElementById('root');
+    ReactDOM.render(<TodoList />, app);
+  </script>
+</body>
+</html>
